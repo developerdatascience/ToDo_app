@@ -1,0 +1,104 @@
+
+
+.todo-table{
+    margin: 30px;
+}
+
+/* Table Styling */
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 14px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+    text-align: left;
+}
+
+.styled-table thead {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f9f9f9;
+}
+
+.styled-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Priority & Days Left Badges */
+.badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    color: white;
+}
+
+.badge-low {
+    background-color: #2196F3;
+}
+
+.badge-medium {
+    background-color: #FF9800;
+}
+
+.badge-top {
+    background-color: #7681c3;
+}
+
+.badge-high {
+    background-color: #F44336;
+}
+
+.badge-success {
+    background-color: #4CAF50;
+}
+
+.badge-warning {
+    background-color: #FF9800;
+}
+
+.badge-danger {
+    background-color: #f44336;
+}
+
+/* Delete Button */
+.delete-btn {
+    background-color: transparent;
+    border: none;
+    color: #f44336;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.delete-btn:hover {
+    transform: scale(1.1);
+    color: #c62828;
+}
+
+/* Table Header */
+.table-header h3 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+
