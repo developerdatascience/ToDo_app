@@ -4,6 +4,7 @@ const user = {
     profilePic: "" // Set to empty string if no picture, or a URL like "https://example.com/profile.jpg"
 };
 
+
 // Function to get initials from a name
 function getInitials(name) {
     const nameParts = name.trim().split(" ");

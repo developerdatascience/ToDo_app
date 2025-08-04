@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.database import Base, engine
 from app.routers import createtask
 from app.routers import todotable
+from app.routers import users
 
 # Create all tables in the database
 Base.metadata.create_all(bind=engine)
@@ -22,6 +23,7 @@ app.add_middleware(
 
 app.include_router(router=createtask.router, prefix="/tasks", tags=["tasks"])
 app.include_router(router=todotable.router, prefix="/todos", tags=["todos"])
+app.include_router(router=users.router, prefix="", tags=["users"])
 
 
 

@@ -22,6 +22,7 @@
     --color-dark-text: #131212;
     --color-body: #dae8f6;
     --color-form-bg: #ffffff;
+    --color-danger: #f44336;
 }
 
 body {
@@ -88,8 +89,44 @@ body {
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: center;
     gap: 10px;
 }
+
+/* Logout button in navbar */
+.form-container form {
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+
+.form-container button[type="submit"] {
+    background: linear-gradient(90deg, #f44336 0%, #e57373 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 18px 8px 14px;
+    font-size: 15px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(244,67,54,0.08);
+    outline: none;
+}
+
+.form-container button[type="submit"]:hover {
+    background: linear-gradient(90deg, #d32f2f 0%, #b71c1c 100%);
+    box-shadow: 0 4px 16px rgba(244,67,54,0.18);
+}
+
+.form-container i.fa-right-from-bracket {
+    font-size: 16px;
+    margin-right: 2px;
+}
+
 
 .user-profile {
     width: 30px;
@@ -250,17 +287,23 @@ form .add {
     border-radius: 12px;
 }
 
+form .add:hover {
+    background-color: var(--color-link-hover);
+    color: var(--color-header-text);
+    cursor: pointer;
+}
+
 
 .task-content {
-    max-height: 560px; /* Adjust this value as needed */
-    overflow-y: auto;
-    overflow: scroll;
-    /* margin-top: 20px; */
-    scroll-behavior: smooth;
+    width: 40%;
+    max-height: 560px; /* Adjust as needed */
+    display: flex;
+    flex-direction: column;
     padding: 20px;
     background: white;
     box-shadow: 0 4px 6px rgba(0,0,0,0.05);
     border-radius: 12px;
+    /* Remove overflow here */
 }
 
 .task-list-header {
@@ -273,6 +316,9 @@ form .add {
     border-radius: 12px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-bottom: 8px;
+    position: sticky;
+    top: 0;
+    z-index: 1;
 }
 
 
@@ -284,7 +330,10 @@ form .add {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    margin-top: 20px; /* Adjusted to account for fixed header */
+    /* Remove margin-top */
+    flex: 1 1 auto;
+    overflow-y: auto;
+    min-height: 0; /* Important for flexbox scrolling */
 }
 
 .task-list {
@@ -335,6 +384,7 @@ form .add {
     cursor: pointer;
 }
 
+
 .empty-state {
     display: flex;
     flex-direction: row;
@@ -343,5 +393,63 @@ form .add {
     height: 100px;
     color: var(--color-font-secondary);
     gap: 15px;
+}
+
+
+
+
+footer {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+    padding: 15px;
+    background-color: #334155;
+    color: #fff;
+    font-size: 0.9rem;
+}
+
+
+/* dark-mode */
+
+/* Toggle Switch */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 46px;
+    height: 24px;
+}
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 24px;
+}
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+input:checked + .slider {
+    background-color: #2196F3;
+}
+input:checked + .slider:before {
+    transform: translateX(22px);
 }
 

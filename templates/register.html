@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | Modern Design</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            max-width: 900px;
+            background-color: #fff;
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            /* Adjusted height for smaller screens */
+            max-height: 90vh; 
+            overflow-y: auto;
+        }
+
+        /* Visual Section */
+        .visual-section {
+            flex: 1;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .visual-section::before {
+            content: "";
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .visual-section::after {
+            content: "";
+            position: absolute;
+            bottom: -80px;
+            left: -30px;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .visual-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .visual-content h1 {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .visual-content p {
+            font-size: 1rem;
+            line-height: 1.5;
+            max-width: 400px;
+            margin: 0 auto 20px;
+            opacity: 0.9;
+        }
+
+        .features {
+            text-align: left;
+            max-width: 350px;
+            margin: 0 auto;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .feature i {
+            background: rgba(255, 255, 255, 0.2);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 1rem;
+        }
+
+        .feature h3 {
+            font-size: 1rem;
+        }
+
+        .feature p {
+            font-size: 0.85rem;
+            margin: 3px 0 0;
+        }
+
+        /* Form Section */
+        .form-section {
+            flex: 1;
+            padding: 35px 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .header h2 {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 8px;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .header p {
+            color: #777;
+            font-size: 0.95rem;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid #e0e0e0;
+            padding: 10px 5px;
+            margin-bottom: 20px;
+            transition: border-color 0.3s;
+        }
+
+        .input-group:focus-within {
+            border-color: #6a11cb;
+        }
+
+        .input-group i {
+            color: #6a11cb;
+            margin-right: 12px;
+            font-size: 1.1rem;
+            width: 24px;
+            text-align: center;
+        }
+
+        .input-group input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 0.95rem;
+            padding: 5px 0;
+            background: transparent;
+            transition: all 0.3s;
+        }
+
+        .input-group input::placeholder {
+            color: #aaa;
+        }
+
+        .input-group input:focus {
+            color: #333;
+        }
+
+        .password-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #777;
+        }
+
+        .btn {
+            padding: 13px;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(106, 17, 203, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(106, 17, 203, 0.4);
+        }
+
+        .bottom-text {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .bottom-text a {
+            color: #6a11cb;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .bottom-text a:hover {
+            text-decoration: underline;
+            color: #2575fc;
+        }
+
+        /* Terms checkbox */
+        .terms {
+            display: flex;
+            align-items: flex-start;
+            margin: 10px 0 20px;
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .terms input {
+            margin-right: 8px;
+            margin-top: 4px;
+        }
+
+        .terms a {
+            color: #6a11cb;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .container {
+                max-height: 95vh;
+            }
+            
+            .visual-section {
+                padding: 25px 20px;
+            }
+            
+            .visual-content h1 {
+                font-size: 1.9rem;
+            }
+            
+            .form-section {
+                padding: 30px 25px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                max-width: 500px;
+                max-height: none;
+                height: auto;
+            }
+            
+            .visual-section {
+                padding: 25px 20px;
+            }
+            
+            .form-section {
+                padding: 35px 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .visual-section {
+                display: none;
+            }
+            
+            .form-section {
+                padding: 30px 25px;
+            }
+            
+            .header h2 {
+                font-size: 1.7rem;
+            }
+            
+            .container {
+                max-height: 95vh;
+            }
+        }
+
+        /* For screens with height less than 800px (like 13" MacBook Pro) */
+        @media (max-height: 800px) {
+            .container {
+                max-height: 85vh;
+            }
+            
+            .visual-section {
+                padding: 20px 15px;
+            }
+            
+            .visual-content h1 {
+                font-size: 1.8rem;
+            }
+            
+            .feature {
+                margin-bottom: 12px;
+            }
+            
+            .form-section {
+                padding: 25px 20px;
+            }
+            
+            .input-group {
+                margin-bottom: 15px;
+                padding: 8px 5px;
+            }
+            
+            .terms {
+                margin: 8px 0 15px;
+            }
+            
+            .btn {
+                padding: 12px;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .login-form > * {
+            animation: fadeIn 0.5s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .input-group:nth-child(1) { animation-delay: 0.1s; }
+        .input-group:nth-child(2) { animation-delay: 0.2s; }
+        .input-group:nth-child(3) { animation-delay: 0.3s; }
+        .input-group:nth-child(4) { animation-delay: 0.4s; }
+        .input-group:nth-child(5) { animation-delay: 0.5s; }
+        .input-group:nth-child(6) { animation-delay: 0.6s; }
+        .terms { animation-delay: 0.7s; }
+        .btn { animation-delay: 0.8s; }
+        .bottom-text { animation-delay: 0.9s; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="visual-section">
+            <div class="visual-content">
+                <h1>Join Our Community</h1>
+                <p>Create your account to unlock exclusive features and personalized experiences.</p>
+                
+                <div class="features">
+                    <div class="feature">
+                        <i class="fas fa-shield-alt"></i>
+                        <div>
+                            <h3>Secure & Private</h3>
+                            <p>Your data is encrypted and protected</p>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-bolt"></i>
+                        <div>
+                            <h3>Lightning Fast</h3>
+                            <p>Quick signup and seamless experience</p>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-sync"></i>
+                        <div>
+                            <h3>Sync Across Devices</h3>
+                            <p>Access your account anywhere</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-section">
+            <div class="header">
+                <h2>Create Your Account</h2>
+                <p>Sign up to get started with our service</p>
+            </div>
+            
+            <form class="login-form" action="/create_account" method="post">
+                <div class="input-group">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" name="first_name" id="first_name" placeholder="First Name" required>
+                </div>
+                
+                <div class="input-group">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" name="last_name" id="last_name" placeholder="Last Name" required>
+                </div>
+                
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" name="username" id="user_name" placeholder="Username" required>
+                </div>
+                
+                <div class="input-group">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="email" name="email" id="email" placeholder="Your Email" required>
+                </div>
+                
+                <div class="input-group">
+                    <i class="fa-solid fa-phone"></i>
+                    <input type="tel" name="phone_number" id="phone_number" placeholder="Mobile Number" required>
+                </div>
+                
+                <div class="input-group">
+                    <i class="fa-solid fa-lock"></i>
+                    <div class="password-container">
+                        <input type="password" name="password" id="password" placeholder="Password" required>
+                        <span class="toggle-password" id="togglePassword">
+                            <i class="far fa-eye"></i>
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="terms">
+                    <input type="checkbox" id="terms" required>
+                    <label for="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+                </div>
+                
+                <button type="submit" class="btn">Create Account</button>
+                
+                <div class="bottom-text">
+                    <p>Already have an account? <a href="/login">Login</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Password visibility toggle
+        const togglePassword = document.querySelector('#togglePassword');
+        const password = document.querySelector('#password');
+        
+        togglePassword.addEventListener('click', function() {
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            this.innerHTML = type === 'password' ? '<i class="far fa-eye"></i>' : '<i class="far fa-eye-slash"></i>';
+        });
+        
+        // Input focus effect
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.borderColor = '#6a11cb';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.style.borderColor = '#e0e0e0';
+            });
+        });
+        
+        // Form submission
+        const form = document.querySelector('.login-form');
+        form.addEventListener('submit', function(e) {
+            // e.preventDefault();
+            
+            // Show loading state
+            const btn = this.querySelector('.btn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
+            btn.disabled = true;
+            
+            // Simulate form submission
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                
+                // Show success message
+                const successMsg = document.createElement('div');
+                successMsg.innerHTML = 'Account created successfully! Redirecting....';
+                successMsg.style.cssText = 'background: #4CAF50; color: white; padding: 12px; border-radius: 8px; text-align: center; margin-top: 15px;';
+                form.appendChild(successMsg);
+                
+                // Redirect after delay
+                // setTimeout(() => {
+                //     window.location.href = '/login';
+                // }, 1500);
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

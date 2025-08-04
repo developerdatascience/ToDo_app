@@ -1,20 +1,54 @@
-
-
-.todo-table{
-    margin: 30px;
+/* === BASE STYLING for Table and Content === */
+.todo-table {
+    padding: 20px;
+    width: 100%;
 }
 
-/* Table Styling */
+.table-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.search-task {
+    width: 30%;
+    margin-bottom: 10px;
+}
+
+.table-header .search-task input[type=text] {
+    padding: 0px 15px; 
+    width: 100%; 
+    height: 50px;
+    border: 1px solid #ccc; 
+    border-radius: 6px;
+}
+
+.table-header h3 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.table-content {
+    width: 100%;
+    overflow-x: auto;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
 .styled-table {
+    min-width: 900px;
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
     font-family: 'Segoe UI', sans-serif;
     font-size: 14px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
     background-color: #fff;
     border-radius: 8px;
     overflow: hidden;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
 }
 
 .styled-table th,
@@ -22,6 +56,7 @@
     padding: 12px 15px;
     text-align: left;
 }
+
 
 .styled-table thead {
     background-color: #4CAF50;
@@ -40,7 +75,6 @@
     background-color: #f1f1f1;
 }
 
-/* Priority & Days Left Badges */
 .badge {
     display: inline-block;
     padding: 4px 8px;
@@ -54,31 +88,30 @@
     background-color: #2196F3;
 }
 
+.badge-top {
+    background-color: #6c2584;
+}
+
+.badge-normal {
+    background-color: #24306a;
+}
+
 .badge-medium {
     background-color: #FF9800;
 }
-
-.badge-top {
-    background-color: #7681c3;
-}
-
 .badge-high {
     background-color: #F44336;
 }
-
 .badge-success {
     background-color: #4CAF50;
 }
-
 .badge-warning {
     background-color: #FF9800;
 }
-
 .badge-danger {
     background-color: #f44336;
 }
 
-/* Delete Button */
 .delete-btn {
     background-color: transparent;
     border: none;
@@ -93,12 +126,118 @@
     color: #c62828;
 }
 
-/* Table Header */
-.table-header h3 {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
+.status-form select {
+    width: 100%;
+    padding: 4px 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    background-color: #f9f9f9;
 }
 
+.status-form select:focus {
+    outline: none;
+    border-color: #4CAF50;
+}
 
+/* === RESPONSIVE DESIGN === */
+@media screen and (max-width: 992px) {
+    .styled-table th,
+    .styled-table td {
+        padding: 10px;
+        font-size: 13px;
+    }
+
+    .table-header h3 {
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .navbar .navitem {
+        flex-direction: column;
+        padding-left: 0;
+    }
+
+    .navitem li {
+        margin: 10px 0;
+    }
+
+    .table-header h3 {
+        font-size: 18px;
+        text-align: center;
+    }
+
+    .styled-table {
+        font-size: 12px;
+    }
+
+    .status-form select {
+        font-size: 12px;
+    }
+
+    .badge {
+        font-size: 11px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .styled-table thead {
+        display: none;
+    }
+
+    .styled-table,
+    .styled-table tbody,
+    .styled-table tr,
+    .styled-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .styled-table tr {
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 10px;
+        background-color: #fff;
+    }
+
+    .styled-table td {
+        text-align: right;
+        position: relative;
+        padding-left: 50%;
+        font-size: 13px;
+        word-break: break-word;
+    }
+
+    .styled-table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 15px;
+        top: 12px;
+        font-weight: bold;
+        text-align: left;
+        width: 45%;
+        white-space: normal;
+    }
+
+    /* --- Fix for Status column --- */
+    .styled-table td[data-label="Status"] {
+        text-align: left;
+        padding-left: 50%;
+        /* Ensures dropdown doesn't overlap label */
+    }
+
+    .styled-table td[data-label="Status"] .status-form select {
+        display: block;
+        width: 100%;
+        margin-top: 8px; /* Space between label and dropdown */
+        font-size: 13px;
+        box-sizing: border-box;
+    }
+
+    .delete-btn {
+        font-size: 14px;
+    }
+}

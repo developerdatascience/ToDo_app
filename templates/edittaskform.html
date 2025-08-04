@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+
+{% block styles %}
+<link rel="stylesheet" href="/static/css/edittask.css">
+<script src="https://kit.fontawesome.com/606d99f9be.js" crossorigin="anonymous"></script>
+{% endblock %}
+
+
+{% block content %}
+<!-- <p>Query params: {{ request.query_params }}</p> -->
+{% if request.query_params.get('alert') == 'success' %}
+    <div id="alert" class="alert success">
+        <i class="fa-solid fa-circle-check"></i>
+        <p>Task updated successfully!</p>
+    </div>
+{% elif request.query_params.get('alert') == 'failed' %}
+    <div id="alert" class="alert failed">
+        <i class="fa-solid fa-circle-xmark"></i>
+        <p>Failed to update task. Please try again.</p>
+    </div>
+{% endif %}
+<div class="task-container">
+    <div class="form-containers">
+        <div class="form-header">
+            <i class="fa-solid fa-pencil"></i>
+            <h3>Edit Task</h3>
+        </div>
+        <div class="form-content">
+            <form action="{{ url_for('update_task_route', task_id= tasks.id) }}" method="post">
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" name="title" id="title" value="{{ tasks.title }}">
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <input type="text" name="description" id="description" value="{{ tasks.description }}">
+                </div>
+                <div class="select-group">
+                    <div class="dropdown-group">
+                        <label for="priority">Priority</label>
+                        <select name="priority" id="priority">
+                            <option value="Medium" {% if tasks.priority == "Medium" %}selected{% endif %}>Medium</option>
+                            <option value="High" {% if tasks.priority == "High" %}selected{% endif %}>High</option>
+                            <option value="Low" {% if tasks.priority == "Low" %}selected{% endif %}>Low</option>
+                            <option value="Normal" {% if tasks.priority == "Normal" %}selected{% endif %}>Normal</option>
+                            <option value="Top" {% if tasks.priority == "Top" %}selected{% endif %}>Top</option>
+                        </select>
+                    </div>
+                    <div class="dropdown-group">
+                        <label for="repeat">Repeat?</label>
+                        <select name="repeat" id="repeat">
+                            <option value="Yes" {% if tasks.repeat == "Yes" %}selected{% endif %}>Yes</option>
+                            <option value="No" {% if tasks.repeat == "No" %}selected{% endif %}>No</option>
+                        </select>
+                    </div>
+                    <div class="dropdown-group">
+                        <label for="calendar">Due Date (Optional)</label>
+                        <input type="date" id="calendar" name="due_date" value="{{ tasks.due_date.strftime('%Y-%m-%d') if tasks.due_date else '' }}">
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button type="submit" class="btn">Update Task</button>
+                    <button type="button" class="btn cancel" id="cancel">Cancel Task</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% block scripts %}
+<script src="/static/js/taskupdateAlert.js"></script>
+<script src="/static/js/cancel.js"></script>
+{% endblock%}
+{% endblock %}

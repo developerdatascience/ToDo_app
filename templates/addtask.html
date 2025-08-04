@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+<div class="todo-content">
+    <div class="form-header">
+        <div class="header">
+            <h2>My Todos</h2>
+            <p>Organise and track your task efficiently</p>
+        </div>
+        <div class="task-progress">
+            <p>Progress</p>
+            <progress id="file" value="{{ pct_completion }}" max="100"> {{ pct_completion }}% </progress>
+            <p>{{ pct_completion }}% complete</p>
+        </div>
+    </div>
+    <div class="task-form">
+        <form action="/tasks/add-task" method="post">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" name="title" id="title" placeholder="Write a title for your task">
+            </div>
+            <div class="form-group">
+                <label for="desription">Description</label>
+                <input type="text" name="description" id="description" placeholder="What do you need to do?">
+            </div>
+            <div class="select-group">
+                <div class="dropdown-group">
+                    <label for="priority">Priority</label>
+                    <select name="priority" id="priority">
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
+                        <option value="Low">Low</option>
+                        <option value="Normal">Normal</option>
+                        <option value="Top">Top</option>
+                    </select>
+                </div>
+                <div class="dropdown-group">
+                    <label for="repeat">Repeat?</label>
+                    <select name="repeat" id="repeat">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="dropdown-group">
+                    <label for="calendar">Due Date (Optional)</label>
+                    <input type="date" id="calendar" name="calendar">
+                </div>
+            </div>
+            <button type="submit" class="add">Add Todo</button>
+        </form>
+    </div>
+</div>
+<div class="task-content">
+    <div class="task-list-header">
+        <i class="fa-solid fa-bars-progress"></i>
+        <h3 class="task-header">Recently Added Task</h3>
+    </div>
+    <div class="task-container">
+        {% for task in tasks %}
+        <div class="task-list">
+            <a href="#">{{ task.title }}</a>
+            <div class="edit-del">
+                <a href="{{ url_for('get_task_for_update', task_id=task.id) }}"><i class="fa-solid fa-pencil"></i></a>
+                <form action="{{ url_for('delete_task_route', task_id=task.id) }}" method="post" style="display: inline;">
+                    <button class="btn" type="submit" style="background: none; border: none; cursor: pointer;">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+        {% else %}
+        <div class="empty-state">
+            <i class="fa-solid fa-clipboard-list"></i>
+            <p>No tasks found. Add your first task!</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% block scripts %}<script src="/static/js/taskupdateAlert.js"></script>{% endblock%}
+{% endblock %}

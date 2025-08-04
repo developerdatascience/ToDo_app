@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login | Modern Design</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      display: flex;
+      width: 100%;
+      max-width: 900px;
+      background-color: #fff;
+      border-radius: 20px;
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      min-height: 600px;
+    }
+
+    /* Visual Section */
+    .visual-section {
+      flex: 1;
+      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .visual-section::before {
+      content: "";
+      position: absolute;
+      top: -50px;
+      right: -50px;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .visual-section::after {
+      content: "";
+      position: absolute;
+      bottom: -80px;
+      left: -30px;
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .visual-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+
+    .visual-content h1 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+
+    .visual-content p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      max-width: 400px;
+      margin: 0 auto 30px;
+      opacity: 0.9;
+    }
+
+    .features {
+      text-align: left;
+      max-width: 350px;
+      margin: 0 auto;
+    }
+
+    .feature {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .feature i {
+      background: rgba(255, 255, 255, 0.2);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+      font-size: 1.1rem;
+    }
+
+    /* Form Section */
+    .form-section {
+      flex: 1;
+      padding: 50px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .header h2 {
+      font-size: 2rem;
+      color: #333;
+      margin-bottom: 8px;
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .header p {
+      color: #777;
+      font-size: 1rem;
+    }
+
+    .login-form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .input-group {
+      display: flex;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+      padding: 12px 5px;
+      margin-bottom: 25px;
+      transition: border-color 0.3s;
+    }
+
+    .input-group:focus-within {
+      border-color: #6a11cb;
+    }
+
+    .input-group i {
+      color: #6a11cb;
+      margin-right: 12px;
+      font-size: 1.1rem;
+      width: 24px;
+      text-align: center;
+    }
+
+    .input-group input {
+      border: none;
+      outline: none;
+      width: 100%;
+      font-size: 1rem;
+      padding: 5px 0;
+      background: transparent;
+      transition: all 0.3s;
+    }
+
+    .input-group input::placeholder {
+      color: #aaa;
+    }
+
+    .input-group input:focus {
+      color: #333;
+    }
+
+    .password-container {
+      position: relative;
+      width: 100%;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #777;
+    }
+
+    .options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 10px 0 25px;
+      font-size: 0.95rem;
+    }
+
+    .remember {
+      display: flex;
+      align-items: center;
+    }
+
+    .remember input {
+      margin-right: 8px;
+    }
+
+    .forgot-password {
+      color: #6a11cb;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+
+    .forgot-password:hover {
+      text-decoration: underline;
+      color: #2575fc;
+    }
+
+    .btn {
+      padding: 14px;
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      color: white;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 10px;
+      box-shadow: 0 4px 15px rgba(106, 17, 203, 0.3);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(106, 17, 203, 0.4);
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      margin: 25px 0;
+      color: #777;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+      flex: 1;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .divider span {
+      padding: 0 15px;
+      font-size: 0.9rem;
+    }
+
+    .social-login {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .social {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .social:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .fb { background: #3b5998; }
+    .tw { background: #1DA1F2; }
+    .g { background: #DB4437; }
+
+    .bottom-text {
+      text-align: center;
+      font-size: 0.95rem;
+      color: #666;
+      margin-top: 20px;
+    }
+
+    .bottom-text a {
+      color: #6a11cb;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .bottom-text a:hover {
+      text-decoration: underline;
+      color: #2575fc;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        max-width: 500px;
+      }
+      
+      .visual-section {
+        padding: 30px 20px;
+      }
+      
+      .visual-content h1 {
+        font-size: 2rem;
+      }
+      
+      .form-section {
+        padding: 40px 30px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .visual-section {
+        display: none;
+      }
+      
+      .form-section {
+        padding: 35px 25px;
+      }
+      
+      .header h2 {
+        font-size: 1.7rem;
+      }
+      
+      .options {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+    }
+
+    /* Animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .login-form > * {
+      animation: fadeIn 0.5s ease-out;
+      animation-fill-mode: both;
+    }
+
+    .input-group:nth-child(1) { animation-delay: 0.1s; }
+    .input-group:nth-child(2) { animation-delay: 0.2s; }
+    .options { animation-delay: 0.3s; }
+    .btn { animation-delay: 0.4s; }
+    .divider { animation-delay: 0.5s; }
+    .social-login { animation-delay: 0.6s; }
+    .bottom-text { animation-delay: 0.7s; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="visual-section">
+      <div class="visual-content">
+        <h1>Welcome Back!</h1>
+        <p>Sign in to access your personalized dashboard and continue your journey with us.</p>
+        
+        <div class="features">
+          <div class="feature">
+            <i class="fas fa-rocket"></i>
+            <div>
+              <h3>Quick Access</h3>
+              <p>Get back to where you left off</p>
+            </div>
+          </div>
+          <div class="feature">
+            <i class="fas fa-shield-alt"></i>
+            <div>
+              <h3>Secure Login</h3>
+              <p>Your account is protected</p>
+            </div>
+          </div>
+          <div class="feature">
+            <i class="fas fa-sync"></i>
+            <div>
+              <h3>Sync Across Devices</h3>
+              <p>Continue on any device</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-section">
+      <div class="header">
+        <h2>Login to Your Account</h2>
+        <p>Enter your credentials to continue</p>
+      </div>
+      
+      <form class="login-form" method="post" action="/login">
+        <div class="input-group">
+          <i class="fas fa-envelope"></i>
+          <input type="email" name="email" placeholder="Your Email" required>
+        </div>
+        
+        <div class="input-group">
+          <i class="fas fa-lock"></i>
+          <div class="password-container">
+            <input type="password" id="loginPassword" name="password" placeholder="Password" required>
+            <span class="toggle-password" id="loginTogglePassword">
+              <i class="far fa-eye"></i>
+            </span>
+          </div>
+        </div>
+        
+        <div class="options">
+          <div class="remember">
+            <input type="checkbox" id="remember">
+            <label for="remember">Remember me</label>
+          </div>
+          <a href="#" class="forgot-password">Forgot password?</a>
+        </div>
+        
+        <button type="submit" class="btn">Log In</button>
+        
+        <div class="divider">
+          <span>Or continue with</span>
+        </div>
+        
+        <div class="social-login">
+          <button class="social fb"><i class="fab fa-facebook-f"></i></button>
+          <button class="social tw"><i class="fab fa-twitter"></i></button>
+          <button class="social g"><i class="fab fa-google"></i></button>
+        </div>
+        
+        <div class="bottom-text">
+          <p>Don't have an account? <a href="/create_account">Sign up</a></p>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Password visibility toggle
+    const togglePassword = document.querySelector('#loginTogglePassword');
+    const password = document.querySelector('#loginPassword');
+    
+    togglePassword.addEventListener('click', function() {
+      const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+      password.setAttribute('type', type);
+      this.innerHTML = type === 'password' ? '<i class="far fa-eye"></i>' : '<i class="far fa-eye-slash"></i>';
+    });
+    
+    // Input focus effect
+    const inputs = document.querySelectorAll('input');
+    inputs.forEach(input => {
+      input.addEventListener('focus', function() {
+        this.parentElement.parentElement.style.borderColor = '#6a11cb';
+      });
+      
+      input.addEventListener('blur', function() {
+        this.parentElement.parentElement.style.borderColor = '#e0e0e0';
+      });
+    });
+    
+    // Form submission
+    const form = document.querySelector('.login-form');
+    form.addEventListener('submit', function(e) {
+      // e.preventDefault();
+      // Simulate login process
+      const btn = this.querySelector('.btn');
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
+      btn.disabled = true;
+      
+      setTimeout(() => {
+        btn.innerHTML = 'Log In';
+        btn.disabled = false;
+        // Show success message
+        const successMsg = document.createElement('div');
+        successMsg.innerHTML = 'Login successful! Redirecting...';
+        successMsg.style.cssText = 'background: #4CAF50; color: white; padding: 15px; border-radius: 8px; text-align: center; margin-top: 15px;';
+        form.appendChild(successMsg);
+        
+        // Redirect after delay
+        // setTimeout(() => {
+        //   window.location.href = '/tasks';
+        // }, 1500);
+      }, 2000);
+    });
+  </script>
+</body>
+</html>

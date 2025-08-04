@@ -1,97 +1,80 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My ToDos - ToDo App</title>
-    <link rel="stylesheet" href="/static/css/base.css">
-    <link rel="stylesheet" href="/static/css/mytodos.css">
-    <script src="https://kit.fontawesome.com/606d99f9be.js" crossorigin="anonymous"></script>
-</head>
-<body>
-    <div class="main">
-        <div class="navbar">
-            <div class="nav-header">
-                <i class="fa-solid fa-clipboard-list"></i>
-                <h3 class="header">Todo App</h3>
-            </div>
-            <div class="navlist">
-                <ul class="navitem">
-                    <li><a href="/tasks/add-todos"><i class="fa-solid fa-circle-plus"></i>Add Todos</a></li>
-                    <li><a href="#"><i class="fas fa-list-check"></i>My Todos</a></li>
-                    <li><a href="#"><i class="fas fa-chart-pie"></i>Statistics</a></li>
-                    <li class="user">
-                        <div class="user-profile" id="user-profile"></div>
-                        <a href="#" id="user-name">Harendra Kumar</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="todo-table">
-            <div class="table-header">
-                <h3>📝 ToDos List</h3>
-            </div>
-            <div class="table-content">
-                <table class="styled-table">
-                    <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th>Description</th>
-                            <th>Priority</th>
-                            <th>Due Date</th>
-                            <th>Days Left</th>
-                            <th>Status</th>
-                            <th>Completed</th>
-                            <th>Last Modified</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for task in tasks %}
-                        <tr>
-                            <td>{{ task.title }}</td>
-                            <td>{{ task.description }}</td>
-                            <td>
-                                <span class="badge badge-{{ task.priority|lower }}">
-                                    {{ task.priority }}
-                                </span>
-                            </td>
-                            <td>{{ task.due_date.strftime('%Y-%m-%d') if task.due_date else 'N/A' }}</td>
-                            <td>
-                                {% if task.days_remaining is not none %}
-                                    {% if task.days_remaining < 0 %}
-                                        <span class="badge badge-danger">{{ task.days_remaining }} days ago</span>
-                                    {% elif task.days_remaining == 0 %}
-                                        <span class="badge badge-warning">Today</span>
-                                    {% else %}
-                                        <span class="badge badge-success">{{ task.days_remaining }} days</span>
-                                    {% endif %}
-                                {% else %}
-                                    N/A
-                                {% endif %}
-                            </td>
-                            <td>
-                                <form action="{{ url_for('update_task_status', task_id=task.id) }}" method="post" class="status-form">
-                                    <select name="status" id="" onchange="this.form.submit()">
-                                        <option value="Pending" {{ 'selected' if task.status == 'Pending' else '' }}>Pending</option>
-                                        <option value="Completed" {{ 'selected' if task.status == 'Completed' else '' }}>Completed</option>
-                                    </select>
-                                </form>
-                            </td>
-                            <td>{{ task.completion_date.strftime('%Y-%m-%d') if task.completion_date else 'N/A' }}</td>
-                            <td>{{ task.modified_at.strftime('%Y-%m-%d %H:%M:%S') }}</td>
-                            <td>
-                                <form action="/todos/delete-task/{{ task.id }}" method="post">
-                                    <button type="submit" class="delete-btn"><i class="fa-solid fa-trash"></i></button>
-                                </form>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+{% extends 'base.html' %}
+
+
+{% block styles %}
+<link rel="stylesheet" href="/static/css/mytodos.css">
+{% endblock %}
+
+{% block content %}
+<div class="todo-table">
+    <div class="table-header">
+        <h3>📝 ToDos List</h3>
+        <div class="search-task">
+            <input type="text" id="taskSearch" placeholder="Search tasks...">
         </div>
     </div>
-    <script src="/static/js/base.js"></script>
-</body>
-</html>
+    <div class="table-content">
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Priority</th>
+                    <th>Repeat</th>
+                    <th>Due Date</th>
+                    <th>Days Left</th>
+                    <th>Status</th>
+                    <th>Completed</th>
+                    <th>Last Modified</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task in tasks %}
+                <tr>
+                    <td data-label="Title">{{ task.title }}</td>
+                    <td data-label="Description">{{ task.description }}</td>
+                    <td data-label="Priority">
+                        <span class="badge badge-{{ task.priority|lower }}">
+                            {{ task.priority }}
+                        </span>
+                    </td>
+                    <td data-label="Repeat">{{ task.repeat }}</td>
+                    <td data-label="Due Date">{{ task.due_date.strftime('%Y-%m-%d') if task.due_date else 'N/A' }}</td>
+                    <td data-label="Days Left">
+                        {% if task.days_remaining is not none %}
+                            {% if task.days_remaining < 0 %}
+                                <span class="badge badge-danger">{{ task.days_remaining }} days ago</span>
+                            {% elif task.days_remaining == 0 %}
+                                <span class="badge badge-warning">Today</span>
+                            {% else %}
+                                <span class="badge badge-success">{{ task.days_remaining }} days</span>
+                            {% endif %}
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </td>
+                    <td data-label="Status">
+                        <form action="{{ url_for('update_task_status', task_id=task.id) }}" method="post" class="status-form">
+                            <select name="status" id="" onchange="this.form.submit()">
+                                <option value="Pending" {{ 'selected' if task.status == 'Pending' else '' }}>Pending</option>
+                                <option value="Completed" {{ 'selected' if task.status == 'Completed' else '' }}>Completed</option>
+                                <option value="Overdue" {{ 'selected' if task.status == 'Overdue' else '' }}>Overdue</option>
+                            </select>
+                        </form>
+                    </td>
+                    <td data-label="Completed">{{ task.completion_date.strftime('%Y-%m-%d') if task.completion_date else 'N/A' }}</td>
+                    <td data-label="Last Modified">{{ task.modified_at.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                    <td data-label="Action">
+                        <form action="/todos/delete-task/{{ task.id }}" method="post">
+                            <button type="submit" class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="/static/js/searchtask.js"></script>
+{% endblock %}
